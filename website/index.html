@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: Verdana, sans-serif;
+    }
+
+    #container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      height: 100%;
+    }
+
+    #content {
+
+      width: 100%;
+      height: 100%;
+      background-color: rgb(0, 0, 0);
+
+
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+
+
+
+  <style>
+    /* Define the container styles */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(6, minmax(0, 1fr));
+      gap: 0px;
+      /* Adjust this value to control the gap between divs */
+    }
+
+    /* Define the widescreen div styles */
+    .widescreen-div {
+      background-color: #f0f0f0;
+      padding-top: 50%;
+      /* 16:8 aspect ratio */
+      position: relative;
+    }
+
+    /* Define the content inside the widescreen div */
+    .widescreen-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+
+    .button_container {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .button {
+      flex: 1;
+      width: 50%;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .sign {
+
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      flex: 1;
+      width: 50%;
+      text-align: center;
+      font-size: 3vw;
+    }
+
+
+    .fit_image {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+
+    .bottom_bar {
+      width: 100%;
+      display: block;
+    }
+
+    .sbs {
+      background-color: #003366;
+      color: yellow;
+
+    }
+
+    .nbs {
+      background-color: #CC9900;
+      color: #003366;
+    }
+	#big_button	{ 
+	user-select: none; 
+	}
+	
+  </style>
+
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="content">
+      <div class="container">
+
+        <!-- Row 1 -->
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell1">
+          </div>
+        </div>
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell2">
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell3">
+          </div>
+        </div>
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell4">
+          </div>
+        </div>
+
+
+        <!-- Row 1 -->
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell5">
+          </div>
+        </div>
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell6">
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell7">
+          </div>
+        </div>
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell8">
+          </div>
+        </div>
+
+
+        <!-- Row 1 -->
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell9">
+          </div>
+        </div>
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell10">
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell11">
+          </div>
+        </div>
+        <div class="widescreen-div">
+          <div class="widescreen-content">
+            <img class="fit_image" id="cell12">
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <div class="button_container">
+
+        <div class="sign sbs" id="SBS">南門巴士站 South Bus Station</div>
+
+        <div class="sign nbs" id="NBS">北門巴士站 North Bus Station</div>
+
+        <!-- <button class="button">Button 1</button>
+        <button class="button">Button 2</button> -->
+      </div>
+
+      <div><img class="bottom_bar" id="big_button" src="2button_hkust.png">
+	  
+	  
+	  
+	  
+	  </div>
+    </div>
+
+    <script>
+      function resizeContent() {
+        var container = document.getElementById('container');
+        var content = document.getElementById('content');
+        var containerWidth = container.offsetWidth;
+        var containerHeight = container.offsetHeight;
+
+        if (containerWidth / containerHeight > 9 / 16) {
+          content.style.width = containerHeight * 9 / 16 + 'px';
+          content.style.height = containerHeight + 'px';
+        } else {
+          content.style.width = containerWidth + 'px';
+          content.style.height = containerWidth * 16 / 9 + 'px';
+        }
+      }
+
+      window.addEventListener('resize', resizeContent);
+      resizeContent();
+    </script>
+
+
+    <script>
+
+      function fetch_any(text_in) {
+        fetch("https://gates-api.evnchn.io/get_latest_twelve?type=" + text_in)
+          .then(response => response.text())
+          .then(data => {
+            const list = data.split(",");
+            console.log(list);
+            // Use the 'list' array for further processing or manipulation
+            // Assigning img src to existing elements
+            for (var i = 0; i < list.length; i++) {
+              var img = document.getElementById("cell" + (i + 1));
+              img.src = "https://gates-img.evnchn.io/" + list[i];
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
+
+      }
+
+      if (location.hash != "#SG" && location.hash != "#NG") {
+        location.hash = "#SG";
+      }
+
+
+
+      function fetch_by_hash() {
+        if (location.hash == "#SG") {
+          fetch_any("SG");
+		  document.getElementById("SBS").style.fontWeight = "bold";
+		  document.getElementById("NBS").style.fontWeight = "normal";
+		  document.getElementById("SBS").style.textDecoration = "underline";
+		  document.getElementById("NBS").style.textDecoration = "none";
+        } else {
+          fetch_any("NG");
+		  		  document.getElementById("NBS").style.fontWeight = "bold";
+		  document.getElementById("SBS").style.fontWeight = "normal";
+		  document.getElementById("NBS").style.textDecoration = "underline";
+		  document.getElementById("SBS").style.textDecoration = "none";
+        }
+      }
+      setInterval(fetch_by_hash, 200000)
+      fetch_by_hash()
+	  
+	  
+	  function NGSG_click_handler(event) {
+      var image = event.target;
+      var imageWidth = image.offsetWidth;
+      var clickX = event.clientX - image.getBoundingClientRect().left;
+      
+      if (clickX < imageWidth / 2) {
+        // Call function_1 if the click position is on the left half of the image
+        if (location.hash != "#SG") {location.hash = "#SG";fetch_by_hash()}
+      } else {
+        // Call function_2 if the click position is on the right half of the image
+        if (location.hash != "#NG") {location.hash = "#NG";fetch_by_hash()}
+      }
+    }
+	    var image = document.getElementById("big_button");
+    
+    image.addEventListener("mousedown", NGSG_click_handler);
+    image.addEventListener("mousemove", NGSG_click_handler);
+    image.addEventListener("mouseup", NGSG_click_handler);
+    image.addEventListener("touchstart", NGSG_click_handler);
+    image.addEventListener("touchmove", NGSG_click_handler);
+    image.addEventListener("touchend", NGSG_click_handler);
+    </script>
+</body>
+
+</html>
